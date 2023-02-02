@@ -151,14 +151,20 @@ var messagePubHandler mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Me
 }
 */
 
+var ch = make(chan float64)
+
 func messagePubHandler(client mqtt.Client, msg mqtt.Message) {
 	vnew := getVoltageLevel(msg)
-	fmt.Println("Voltage Level: ", vnew)
+
+	// send voltage level to client
+	ch <- vnew
 }
 
-//var connectHandler mqtt.OnConnectHandler = func(client mqtt.Client) {
-//fmt.Println("Client connected...")
-//}
+/*
+var connectHandler mqtt.OnConnectHandler = func(client mqtt.Client) {
+	fmt.Println("Client connected...")
+}
+*/
 
 func connectHandler(client mqtt.Client) {}
 
@@ -172,7 +178,7 @@ func connectLostHandler(client mqtt.Client, err error) {
 	fmt.Printf("Connect lost: %v", err)
 }
 
-func CreateMyMQTTClient(brokerAddress string, port int, myController controllers.IController) MyMQTTClient {
+func NewMyMQTTClient(brokerAddress string, port int, controller controllers.IController) MyMQTTClient {
 
 	// client configuration
 	opts := mqtt.NewClientOptions()
@@ -184,8 +190,8 @@ func CreateMyMQTTClient(brokerAddress string, port int, myController controllers
 	opts.OnConnect = connectHandler
 	opts.OnConnectionLost = connectLostHandler
 
-	// create an instance of client
-	myClient := MyMQTTClient{MyClient: mqtt.NewClient(opts), Controller: myController}
+	// create an instance of mqtt client
+	myClient := MyMQTTClient{MyClient: mqtt.NewClient(opts), Controller: controller}
 
 	return myClient
 }
@@ -200,21 +206,17 @@ func (c *MyMQTTClient) Run() {
 	// subscribe client to topics
 	sub(c.MyClient)
 
+	for {
+
+		// receive voltage level from mqtt
+		vnew := <-ch
+		taskRate := c.Controller.Update(3.7, vnew) // goal, voltage
+
+		fmt.Println("Voltage Level: ", vnew, "Task Rate: ", taskRate)
+	}
+
 	// disconnect from broker
 	c.MyClient.Disconnect(250)
-}
-
-func invokeController() {
-	//rold := 1
-	//vnew := shared.INITIAL_VOLTAGE
-
-	//GETnew := 1.0 / shared.INITIAL_RATE
-
-	//astar := algorithm.Astar{}
-
-	// configure seed
-	//rand.Seed(time.Now().UnixNano())
-
 }
 
 func sub(client mqtt.Client) {

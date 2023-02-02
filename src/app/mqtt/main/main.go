@@ -7,6 +7,8 @@ import (
 	"shared"
 )
 
+var CHAN = make(chan float64)
+
 func main() {
 
 	//controller := controller.NewController(shared.PID, shared.DEAD_ZONE_PID, -9600, 0.01, 1.0, 2.7/10)
@@ -21,9 +23,10 @@ func main() {
 	//controller := controller.NewController(shared.DEAD_ZONE_ONOFF, "", 1.0, 1200.0, 2.7/16.0) // Dead zone controller
 	//controller := controller.NewController(shared.GAIN_SCHEDULING, shared.BASIC_PID, 0.0, 0.0, 0.0) // Gain Scheduling PID adaptive control
 
-	myController := controllers.NewController(shared.ONOFF, "", 1.0, 1200.0)
-	myMqqtClient := myclient.CreateMyMQTTClient(shared.BROKER_ADDRESS, shared.BROKER_PORT, myController)
+	controller := controllers.NewController(shared.ONOFF, "", 1.0, 1200.0)
+	myMqqtClient := myclient.NewMyMQTTClient(shared.BROKER_ADDRESS, shared.BROKER_PORT, controller)
 
+	//myController.Run()
 	myMqqtClient.Run()
 
 	//capacitor := cap.Capacitor{Pattern: shared.RANDOM, PreviousVoltageLevel: shared.INITIAL_VOLTAGE}

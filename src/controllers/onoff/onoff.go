@@ -22,7 +22,7 @@ func (c *OnOffController) Update(p ...float64) float64 {
 	u := 0.0
 
 	s := p[0] // goal
-	y := p[1] // arrival rate
+	y := p[1] // rate
 
 	// error
 	err := direction * (s - y)
