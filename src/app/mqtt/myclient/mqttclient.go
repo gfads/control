@@ -210,7 +210,7 @@ func (c *MyMQTTClient) Run() {
 
 		// receive voltage level from mqtt
 		vnew := <-ch
-		taskRate := c.Controller.Update(3.7, vnew) // goal, voltage
+		taskRate := c.Controller.Update(shared.OV, vnew) // goal - optimum voltage, voltage
 
 		fmt.Println("Voltage Level: ", vnew, "Task Rate: ", taskRate)
 	}
