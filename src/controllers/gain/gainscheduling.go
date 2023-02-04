@@ -1,3 +1,12 @@
+/*********************************************************************************
+Author: Nelson S Rosa
+Description: This program implements the Gain Scheduling strategy (adaptive controller),
+			as defined in "Feedback Control for Computer Systems: Introducing Control Theory to Enterprise
+			Programmers", Philipp K. Janert, 2014.
+
+Date: 04/02/2023
+*********************************************************************************/
+
 package gainscheduling
 
 import (
@@ -42,7 +51,7 @@ func (c *Controller) Initialise(p ...float64) {
 
 	c.Info.PreviousError = 0.0
 	c.Info.PreviousPreviousError = 0.0
-	c.Info.SumPreviousErrors = 0.0
+	c.Info.SumPrevErrors = 0.0
 	c.Info.Out = 0.0
 	c.Info.PreviousDifferentiator = 0.0
 }
@@ -86,7 +95,7 @@ func (c *Controller) Update(p ...float64) float64 {
 	}
 
 	c.Info.PreviousError = err
-	c.Info.SumPreviousErrors = c.Info.SumPreviousErrors + err
+	c.Info.SumPrevErrors = c.Info.SumPrevErrors + err
 
 	return c.Info.Out
 }

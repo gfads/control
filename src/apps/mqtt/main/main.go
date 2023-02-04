@@ -1,3 +1,11 @@
+/*********************************************************************************
+Author: Nelson S Rosa
+Description: This program shows an example of using an MQTT client with a controller. The client
+             can use several types of controllers, e.g., On-Off, PID, and Gain
+             scheduling.
+Date: 04/02/2023
+*********************************************************************************/
+
 package main
 
 import (

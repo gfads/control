@@ -1,3 +1,9 @@
+/*********************************************************************************
+Author: Nelson S Rosa
+Description: This program defines the generic interface implemented by all controllers.
+Date: 04/02/2023
+*********************************************************************************/
+
 package ops
 
 import (
@@ -16,9 +22,11 @@ import (
 )
 
 type IController interface {
-	Initialise(...float64)
-	Update(...float64) float64
+	Initialise(...float64)     // Initialise the controller
+	Update(...float64) float64 // Update the controller output
 }
+
+// Create a controller of 'Type' (typeName) and configure its parameters //
 
 func NewController(typeName string, p ...float64) IController {
 

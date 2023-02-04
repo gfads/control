@@ -1,3 +1,12 @@
+/*********************************************************************************
+Author: Nelson S Rosa
+Description: This program implements the On Off controller as defined in "Feedback
+			Control for Computer Systems: Introducing Control Theory to Enterprise
+			Programmers", Philipp K. Janert, 2014.
+
+Date: 04/02/2023
+*********************************************************************************/
+
 package onoffbasic
 
 import (

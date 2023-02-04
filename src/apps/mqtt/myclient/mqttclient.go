@@ -59,12 +59,12 @@ func (c *MyMQTTClient) Run() {
 		upMsg := <-subChan
 
 		if strings.Index(reflect.TypeOf(upMsg).String(), "Node1") > 0 {
-			msgNode := upMsg.(shared.SubDataNode1)
+			msgNode := upMsg.(shared.DownDataNode1)
 			vnew = msgNode.UplinkMessage.DecodedPayload.Node1BatteryLevel
 			nodeId = msgNode.EndDeviceIds.DeviceId
 			taskRate = c.Controller.Update(shared.OV, vnew) // goal - optimum voltage, voltage
 		} else if strings.Index(reflect.TypeOf(upMsg).String(), "Node2") > 0 {
-			msgNode := upMsg.(shared.SubDataNode2)
+			msgNode := upMsg.(shared.DownDataNode2)
 			vnew = msgNode.UplinkMessage.DecodedPayload.Node2BatteryLevel
 			nodeId = msgNode.EndDeviceIds.DeviceId
 			taskRate = c.Controller.Update(shared.OV, vnew) // goal - optimum voltage, voltage
@@ -94,8 +94,8 @@ func messagePubHandler(client mqtt.Client, msg mqtt.Message) {
 
 	var r interface{}
 
-	var infoNode01 shared.SubDataNode1
-	var infoNode02 shared.SubDataNode2
+	var infoNode01 shared.DownDataNode1
+	var infoNode02 shared.DownDataNode2
 
 	// unmarshall message of node 1 - TODO
 	err := json.Unmarshal(msg.Payload(), &infoNode01)

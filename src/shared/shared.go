@@ -1,3 +1,9 @@
+/*********************************************************************************
+Author: Nelson S Rosa
+Description: This program includes constants used in the whole package.
+Date: 04/02/2023
+*********************************************************************************/
+
 package shared
 
 import (
@@ -5,11 +11,16 @@ import (
 	"time"
 )
 
+// AsTAR parameters
+
 const SV = 2.7           // Shutoff voltage (page 17) = 2.7 V
 const OV = 3.7           // Optimum voltage (page 17) = 3.7 V
 const HYSTERISIS = 0.001 // 10 mV
+const MINIMUM_TASK_EXECUTION_RATE = 1
+const MAXIMUM_TASK_EXECUTION_RATE = 1200
 
-// Controller types
+// Controller type names
+
 const BASIC_ONOFF = "OnOff"
 const DEAD_ZONE_ONOFF = "OnOffwithDeadZone"
 const HYSTERESIS_ONOFF = "OnOffwithHysteresis"
@@ -23,6 +34,7 @@ const DEAD_ZONE_PID = "DeadZonePID"
 const GAIN_SCHEDULING = "GainScheduling"
 
 // Capacitor behaviour patterns
+
 const INCREASING = 0
 const HALF_INCREASING = 1
 const QUARTER_INCREASING = 2
@@ -37,9 +49,6 @@ const STEP_VOLTAGE = 0.001 // in Volts
 
 const ADAPTATION_CYCLES = 131
 
-const MINIMUM_TASK_EXECUTION_RATE = 1    // page 17
-const MAXIMUM_TASK_EXECUTION_RATE = 1200 // page 17
-
 const INITIAL_VOLTAGE = 3.3 // 3.3 V - page 19
 const INITIAL_RATE = 1
 
@@ -51,7 +60,8 @@ func RandInt(min int, max int) int {
 
 const ANY_UP_TOPIC = BASE_TOPIC_NAME + "/+/up" // any topic
 
-// MQTT CLIENT
+// MQTT Client parameters
+
 const NODE1_ID = "eui-70b3d57ed005867f"
 const NODE2_ID = "eui-70b3d57ed0058955"
 const BROKER_ADDRESS = "eu1.cloud.thethings.network"
@@ -60,7 +70,9 @@ const USER_NAME_MQTT = "floodsensor-appid@ttn"
 const USER_PWD_MQTT = "NNSXS.GTSVUEBSLQEQEGFB6M7HACHU7C4IAWSPZCWLZUI.UFN7TKM7UJVP6X63Z6HLU2VCC2T2FATWZUW5ZJMTO4GTMD3A4PFA"
 const BASE_TOPIC_NAME = "v3/floodsensor-appid@ttn/devices"
 
-type SubDataNode1 struct {
+// Message format stored in "down" topics
+
+type DownDataNode1 struct {
 	EndDeviceIds struct {
 		DeviceId       string `json:"device_id"`
 		ApplicationIds struct {
@@ -124,7 +136,7 @@ type SubDataNode1 struct {
 		} `json:"network_ids"`
 	} `json:"uplink_message"`
 }
-type SubDataNode2 struct {
+type DownDataNode2 struct {
 	EndDeviceIds struct {
 		DeviceId       string `json:"device_id"`
 		ApplicationIds struct {
@@ -188,6 +200,8 @@ type SubDataNode2 struct {
 		} `json:"network_ids"`
 	} `json:"uplink_message"`
 }
+
+// Message format stored in "up" topics
 
 type UpData struct {
 	TaskRate float64 `json:"task_rate"`
