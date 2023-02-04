@@ -23,11 +23,11 @@ type Controller struct {
 func (c *Controller) Initialise(p ...float64) {
 
 	if len(p) < 2 {
-		fmt.Printf("Error: '%s controller requires 2 info (min,max) \n", shared.BASIC_ONOFF)
+		fmt.Printf("Error: '%s controller requires 2 info (min,max) \n", shared.BasicOnoff)
 		os.Exit(0)
 	}
 
-	c.Info.TypeName = shared.BASIC_ONOFF
+	c.Info.TypeName = shared.BasicOnoff
 	c.Info.Min = p[0]
 	c.Info.Max = p[1]
 }

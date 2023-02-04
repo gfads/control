@@ -22,7 +22,7 @@ type Controller struct {
 func (c *Controller) Initialise(p ...float64) {
 
 	if len(p) < 3 {
-		fmt.Printf("Error: '%s' controller requires 3 info (min,max,hysteresis band) \n", shared.HYSTERESIS_ONOFF)
+		fmt.Printf("Error: '%s' controller requires 3 info (min,max,hysteresis band) \n", shared.HysteresisOnoff)
 		os.Exit(0)
 	}
 	c.Info.Min = p[0]

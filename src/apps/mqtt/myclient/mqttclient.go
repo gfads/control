@@ -25,8 +25,8 @@ func NewMyMQTTClient(brokerAddress string, port int, controller ops.IController)
 	opts := mqtt.NewClientOptions()
 	opts.AddBroker(fmt.Sprintf("tcp://%s:%d", brokerAddress, port))
 	//opts.SetClientID("")
-	opts.SetUsername(shared.USER_NAME_MQTT)
-	opts.SetPassword(shared.USER_PWD_MQTT)
+	opts.SetUsername(shared.UserNameMqtt)
+	opts.SetPassword(shared.UserPwdMqtt)
 	opts.SetDefaultPublishHandler(messagePubHandler)
 	opts.OnConnect = connectHandler
 	opts.OnConnectionLost = connectLostHandler
@@ -75,7 +75,7 @@ func (c *MyMQTTClient) Run() {
 
 		// publish task rate to mqtt
 		msgUp := shared.UpData{TaskRate: taskRate}
-		c.MyClient.Publish(shared.BASE_TOPIC_NAME+"/"+nodeId+"/down", 0, false, msgUp)
+		c.MyClient.Publish(shared.BaseTopicName+"/"+nodeId+"/down", 0, false, msgUp)
 
 		fmt.Println("Node: ", nodeId, "Voltage Level: ", vnew, "Task Rate: ", taskRate)
 	}
@@ -85,7 +85,7 @@ func (c *MyMQTTClient) Run() {
 }
 
 func sub(client mqtt.Client) {
-	token := client.Subscribe(shared.ANY_UP_TOPIC, 0, nil)
+	token := client.Subscribe(shared.AnyUpTopicFilter, 0, nil)
 
 	token.Wait()
 }
@@ -106,9 +106,9 @@ func messagePubHandler(client mqtt.Client, msg mqtt.Message) {
 
 	nodeId := infoNode01.EndDeviceIds.DeviceId
 	switch nodeId {
-	case shared.NODE1_ID:
+	case shared.Node1Id:
 		r = infoNode01
-	case shared.NODE2_ID:
+	case shared.Node2Id:
 		// unmarshall message of node 2
 		err := json.Unmarshal(msg.Payload(), &infoNode02)
 		if err != nil {

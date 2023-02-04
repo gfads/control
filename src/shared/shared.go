@@ -1,74 +1,76 @@
 /*********************************************************************************
 Author: Nelson S Rosa
-Description: This program includes constants used in the whole package.
+Description: This program defines constants used in the whole package.
 Date: 04/02/2023
 *********************************************************************************/
 
 package shared
 
 import (
-	"math/rand"
 	"time"
 )
 
 // AsTAR parameters
 
-const SV = 2.7           // Shutoff voltage (page 17) = 2.7 V
-const OV = 3.7           // Optimum voltage (page 17) = 3.7 V
-const HYSTERISIS = 0.001 // 10 mV
-const MINIMUM_TASK_EXECUTION_RATE = 1
-const MAXIMUM_TASK_EXECUTION_RATE = 1200
+const SV = 2.7 // Shutoff voltage (page 17) = 2.7 V
+const OV = 3.7 // Optimum voltage (page 17) = 3.7 V
+
+// const HYSTERESIS = 0.001 // 10 mV
+// const MinimumTaskExecutionRate = 1
+// const MaximumTaskExecutionRate = 1200
 
 // Controller type names
 
-const BASIC_ONOFF = "OnOff"
-const DEAD_ZONE_ONOFF = "OnOffwithDeadZone"
-const HYSTERESIS_ONOFF = "OnOffwithHysteresis"
+const BasicOnoff = "OnOff"
+const DeadZoneOnoff = "OnOffwithDeadZone"
+const HysteresisOnoff = "OnOffwithHysteresis"
 
-const BASIC_PID = "BasicPID"
-const SMOOTHING_PID = "SmoothingDerivativePID"
-const INCREMENTAL_FORM_PID = "IncrementalFormPID"
-const ERROR_SQUARE_PID = "ErrorSquarePID"
-const DEAD_ZONE_PID = "DeadZonePID"
+const BasicPid = "BasicPID"
+const SmoothingPid = "SmoothingDerivativePID"
+const IncrementalFormPid = "IncrementalFormPID"
+const ErrorSquarePid = "ErrorSquarePID"
+const DeadZonePid = "DeadZonePID"
 
-const GAIN_SCHEDULING = "GainScheduling"
+const GainScheduling = "GainScheduling"
 
 // Capacitor behaviour patterns
 
-const INCREASING = 0
-const HALF_INCREASING = 1
-const QUARTER_INCREASING = 2
-const DECREASING = 3
-const HALF_DECREASING = 4
-const QUARTER_DECREASING = 5
-const CONSTANT = 6
-const RANDOM = 7
+// const INCREASING = 0
+// const HalfIncreasing = 1
+// const QuarterIncreasing = 2
+// const DECREASING = 3
+// const HalfDecreasing = 4
+// const QuarterDecreasing = 5
+// const CONSTANT = 6
+// const RANDOM = 7
 
-const MAXIMUM_VOLTAGE = 100.0
-const STEP_VOLTAGE = 0.001 // in Volts
+// const MaximumVoltage = 100.0
+// const StepVoltage = 0.001 // in Volts
 
-const ADAPTATION_CYCLES = 131
+// const AdaptationCycles = 131
 
-const INITIAL_VOLTAGE = 3.3 // 3.3 V - page 19
-const INITIAL_RATE = 1
+// const InitialVoltage = 3.3 // 3.3 V - page 19
+// const InitialRate = 1
 
-const AVERAGE_CONSUMPTION = 0.01
+// const AverageConsumption = 0.01
 
+/*
 func RandInt(min int, max int) int {
 	return min + rand.Intn(max-min)
 }
+*/
 
-const ANY_UP_TOPIC = BASE_TOPIC_NAME + "/+/up" // any topic
+const AnyUpTopicFilter = BaseTopicName + "/+/up" // any topic
 
 // MQTT Client parameters
 
-const NODE1_ID = "eui-70b3d57ed005867f"
-const NODE2_ID = "eui-70b3d57ed0058955"
-const BROKER_ADDRESS = "eu1.cloud.thethings.network"
-const BROKER_PORT = 1883
-const USER_NAME_MQTT = "floodsensor-appid@ttn"
-const USER_PWD_MQTT = "NNSXS.GTSVUEBSLQEQEGFB6M7HACHU7C4IAWSPZCWLZUI.UFN7TKM7UJVP6X63Z6HLU2VCC2T2FATWZUW5ZJMTO4GTMD3A4PFA"
-const BASE_TOPIC_NAME = "v3/floodsensor-appid@ttn/devices"
+const Node1Id = "eui-70b3d57ed005867f"
+const Node2Id = "eui-70b3d57ed0058955"
+const BrokerAddress = "eu1.cloud.thethings.network"
+const BrokerPort = 1883
+const UserNameMqtt = "floodsensor-appid@ttn"
+const UserPwdMqtt = "NNSXS.GTSVUEBSLQEQEGFB6M7HACHU7C4IAWSPZCWLZUI.UFN7TKM7UJVP6X63Z6HLU2VCC2T2FATWZUW5ZJMTO4GTMD3A4PFA"
+const BaseTopicName = "v3/floodsensor-appid@ttn/devices"
 
 // Message format stored in "down" topics
 

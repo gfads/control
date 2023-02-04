@@ -31,39 +31,39 @@ type IController interface {
 func NewController(typeName string, p ...float64) IController {
 
 	switch typeName {
-	case shared.BASIC_ONOFF:
+	case shared.BasicOnoff:
 		c := onoffbasic.Controller{}
 		c.Initialise(p...)
 		return &c
-	case shared.DEAD_ZONE_ONOFF:
+	case shared.DeadZoneOnoff:
 		c := deadzoneonff.Controller{}
 		c.Initialise(p...)
 		return &c
-	case shared.HYSTERESIS_ONOFF:
+	case shared.HysteresisOnoff:
 		c := hysteresisonoff.Controller{}
 		c.Initialise(p...)
 		return &c
-	case shared.BASIC_PID:
+	case shared.BasicPid:
 		c := basicpid.Controller{}
 		c.Initialise(p...)
 		return &c
-	case shared.SMOOTHING_PID:
+	case shared.SmoothingPid:
 		c := smoothingpid.Controller{}
 		c.Initialise(p...)
 		return &c
-	case shared.INCREMENTAL_FORM_PID:
+	case shared.IncrementalFormPid:
 		c := incrementalpid.Controller{}
 		c.Initialise(p...)
 		return &c
-	case shared.DEAD_ZONE_PID:
+	case shared.DeadZonePid:
 		c := deadzonepid.Controller{}
 		c.Initialise(p...)
 		return &c
-	case shared.ERROR_SQUARE_PID:
+	case shared.ErrorSquarePid:
 		c := errorsquarepid.Controller{}
 		c.Initialise(p...)
 		return &c
-	case shared.GAIN_SCHEDULING:
+	case shared.GainScheduling:
 		c := gainscheduling.Controller{}
 		c.Initialise(p...)
 		return &c

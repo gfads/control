@@ -25,7 +25,7 @@ type Controller struct {
 func (c *Controller) Initialise(p ...float64) {
 
 	if len(p) < 5 {
-		fmt.Printf("Error: '%s' controller requires 5 info (min,max,kp,ki,kd) \n", shared.ERROR_SQUARE_PID)
+		fmt.Printf("Error: '%s' controller requires 5 info (min,max,kp,ki,kd) \n", shared.ErrorSquarePid)
 		os.Exit(0)
 	}
 
