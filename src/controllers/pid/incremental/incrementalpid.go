@@ -1,7 +1,7 @@
 package incrementalpid
 
 import (
-	"controllers/info"
+	"controllers/def/info"
 	"fmt"
 	"os"
 	"shared"
@@ -10,13 +10,13 @@ import (
 const DeltaTime = 1 // see page 103
 
 type Controller struct {
-	Info info.InfoController
+	Info info.Controller
 }
 
 func (c *Controller) Initialise(p ...float64) {
 
 	if len(p) < 5 {
-		fmt.Printf("Error: '%s' controller requires 5 parameters (min,max,kp,ki,kd) \n", shared.INCREMENTAL_FORM_PID)
+		fmt.Printf("Error: '%s' controller requires 5 info (min,max,kp,ki,kd) \n", shared.INCREMENTAL_FORM_PID)
 		os.Exit(0)
 	}
 

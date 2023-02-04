@@ -1,8 +1,8 @@
 package main
 
 import (
-	"app/mqtt/myclient"
-	"controllers"
+	"apps/mqtt/myclient"
+	"controllers/def/ops"
 	"shared"
 )
 
@@ -22,7 +22,7 @@ func main() {
 	//c := controllers.NewController(shared.SMOOTHING_PID, -9600, 0.01, 1.0)
 
 	// Gain Scheduling controller
-	c := controllers.NewController(shared.GAIN_SCHEDULING, 0.0, 0.0, 0.0)
+	c := ops.NewController(shared.BASIC_ONOFF, 1.0, 1200)
 
 	// create client and use the controller instance
 	client := myclient.NewMyMQTTClient(shared.BROKER_ADDRESS, shared.BROKER_PORT, c)

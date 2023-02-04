@@ -1,7 +1,7 @@
 package myclient
 
 import (
-	"controllers"
+	"controllers/def/ops"
 	"encoding/json"
 	"fmt"
 	"github.com/eclipse/paho.mqtt.golang"
@@ -13,13 +13,13 @@ import (
 
 type MyMQTTClient struct {
 	MyClient   mqtt.Client
-	Controller controllers.IController
+	Controller ops.IController
 }
 
 var subChan = make(chan interface{})
 var pubChan = make(chan interface{})
 
-func NewMyMQTTClient(brokerAddress string, port int, controller controllers.IController) MyMQTTClient {
+func NewMyMQTTClient(brokerAddress string, port int, controller ops.IController) MyMQTTClient {
 
 	// client configuration
 	opts := mqtt.NewClientOptions()

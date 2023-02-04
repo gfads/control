@@ -1,4 +1,4 @@
-package controllers
+package ops
 
 import (
 	gainscheduling "controllers/gain"

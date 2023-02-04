@@ -1,14 +1,14 @@
 package gainscheduling
 
 import (
-	"controllers/info"
+	"controllers/def/info"
 	"shared"
 )
 
 const DeltaTime = 1 // see page 103
 
 type Controller struct {
-	Info      info.InfoController
+	Info      info.Controller
 	GainTable [2][3]float64
 }
 

@@ -1,7 +1,7 @@
 package smoothingpid
 
 import (
-	"controllers/info"
+	"controllers/def/info"
 	"fmt"
 	"os"
 	"shared"
@@ -11,13 +11,13 @@ const DeltaTime = 1 // see page 103
 const Alpha = 0.1   // alpha variates from 0 to 1 (see page 104)
 
 type Controller struct {
-	Info info.InfoController
+	Info info.Controller
 }
 
 func (c *Controller) Initialise(p ...float64) {
 
 	if len(p) < 5 {
-		fmt.Printf("Error: '%s' controller requires 5 parameters (min,max,kp,ki,kd) \n", shared.SMOOTHING_PID)
+		fmt.Printf("Error: '%s' controller requires 5 info (min,max,kp,ki,kd) \n", shared.SMOOTHING_PID)
 		os.Exit(0)
 	}
 

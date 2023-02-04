@@ -1,7 +1,7 @@
 package deadzonepid
 
 import (
-	"controllers/info"
+	"controllers/def/info"
 	"fmt"
 	"math"
 	"os"
@@ -11,13 +11,13 @@ import (
 const DeltaTime = 1 // see page 103
 
 type Controller struct {
-	Info info.InfoController
+	Info info.Controller
 }
 
 func (c *Controller) Initialise(p ...float64) {
 
 	if len(p) < 6 {
-		fmt.Printf("Error: '%s' controller requires 6 parameters (min,max,kp,ki,kd,dead zone band) \n", shared.DEAD_ZONE_PID)
+		fmt.Printf("Error: '%s' controller requires 6 info (min,max,kp,ki,kd,dead zone band) \n", shared.DEAD_ZONE_PID)
 		os.Exit(0)
 	}
 
