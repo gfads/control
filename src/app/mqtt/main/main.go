@@ -22,7 +22,7 @@ func main() {
 	//c := controller.NewController(shared.DEAD_ZONE_ONOFF, "", 1.0, 1200.0, 2.7/16.0) // Dead zone controller
 	//c := controller.NewController(shared.GAIN_SCHEDULING, shared.BASIC_PID, 0.0, 0.0, 0.0) // Gain Scheduling PID adaptive control
 
-	c := controllers.NewController(shared.ONOFF, "", 1.0, 1200.0)
+	c := controllers.NewController(shared.BASIC_ONOFF, 1.0, 1200.0)
 
 	// create client and use the controller instance
 	client := myclient.NewMyMQTTClient(shared.BROKER_ADDRESS, shared.BROKER_PORT, c)

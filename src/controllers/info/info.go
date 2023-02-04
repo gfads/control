@@ -1,13 +1,12 @@
 package info
 
 type InfoController struct {
-	PIDType string
-	Kp      float64
-	Ki      float64
-	Kd      float64
+	Kp float64
+	Ki float64
+	Kd float64
 
-	LimMin float64
-	LimMax float64
+	Min float64
+	Max float64
 
 	Integrator             float64
 	SumPreviousErrors      float64

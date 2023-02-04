@@ -5,28 +5,24 @@ import (
 	"time"
 )
 
-// MQTT CLIENT
-const NODE1_ID = "eui-70b3d57ed005867f"
-const NODE2_ID = "eui-70b3d57ed0058955"
-const BROKER_ADDRESS = "eu1.cloud.thethings.network"
-const BROKER_PORT = 1883
-const USER_NAME_MQTT = "floodsensor-appid@ttn"
-const USER_PWD_MQTT = "NNSXS.GTSVUEBSLQEQEGFB6M7HACHU7C4IAWSPZCWLZUI.UFN7TKM7UJVP6X63Z6HLU2VCC2T2FATWZUW5ZJMTO4GTMD3A4PFA"
-const BASE_TOPIC_NAME = "v3/floodsensor-appid@ttn/devices"
-
 const SV = 2.7           // Shutoff voltage (page 17) = 2.7 V
 const OV = 3.7           // Optimum voltage (page 17) = 3.7 V
 const HYSTERISIS = 0.001 // 10 mV
 
 // Controller types
-const PID = "PID"
-const PI = "PI"
-const ONOFF = "OnOff"
+const BASIC_ONOFF = "OnOff"
 const DEAD_ZONE_ONOFF = "OnOffwithDeadZone"
 const HYSTERESIS_ONOFF = "OnOffwithHysteresis"
+
+const BASIC_PID = "BasicPID"
+const SMOOTHING_PID = "SmoothingDerivativePID"
+const INCREMENTAL_FORM_PID = "IncrementalFormPID"
+const ERROR_SQUARE_PID = "ErrorSquarePID"
+const DEAD_ZONE_PID = "DeadZonePID"
+
 const GAIN_SCHEDULING = "GainScheduling"
 
-// Capacitor behaviour
+// Capacitor behaviour patterns
 const INCREASING = 0
 const HALF_INCREASING = 1
 const QUARTER_INCREASING = 2
@@ -53,16 +49,17 @@ func RandInt(min int, max int) int {
 	return min + rand.Intn(max-min)
 }
 
-const BASIC_PID = "Basic"
-const SMOOTHING_PID = "SmoothingDerivative"
-const INCREMENTAL_FORM_PID = "IncrementalForm"
-const ERROR_SQUARE_PID = "ErrorSquare"
-const NONE_PID = "None"
-const DEAD_ZONE_PID = "DeadZonePID"
-
 const ANY_UP_TOPIC = BASE_TOPIC_NAME + "/+/up" // any topic
 
-// up messages structure
+// MQTT CLIENT
+const NODE1_ID = "eui-70b3d57ed005867f"
+const NODE2_ID = "eui-70b3d57ed0058955"
+const BROKER_ADDRESS = "eu1.cloud.thethings.network"
+const BROKER_PORT = 1883
+const USER_NAME_MQTT = "floodsensor-appid@ttn"
+const USER_PWD_MQTT = "NNSXS.GTSVUEBSLQEQEGFB6M7HACHU7C4IAWSPZCWLZUI.UFN7TKM7UJVP6X63Z6HLU2VCC2T2FATWZUW5ZJMTO4GTMD3A4PFA"
+const BASE_TOPIC_NAME = "v3/floodsensor-appid@ttn/devices"
+
 type SubDataNode1 struct {
 	EndDeviceIds struct {
 		DeviceId       string `json:"device_id"`
