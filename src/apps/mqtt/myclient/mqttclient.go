@@ -1,3 +1,10 @@
+/*********************************************************************************
+Author: Nelson S Rosa
+Description: This program implements an MQTT client that receives a msg (voltage level)
+         	from the broker and publishes a task rate calculated by the controller.
+Date: 04/02/2023
+*********************************************************************************/
+
 package myclient
 
 import (
@@ -17,7 +24,6 @@ type MyMQTTClient struct {
 }
 
 var subChan = make(chan interface{})
-var pubChan = make(chan interface{})
 
 func NewMyMQTTClient(brokerAddress string, port int, controller ops.IController) MyMQTTClient {
 
@@ -49,8 +55,8 @@ func (c *MyMQTTClient) Run() {
 		panic(token.Error())
 	}
 
-	// subscribe client to topics
-	sub(c.MyClient)
+	// subscribe the client to broker topics
+	c.sub()
 
 	// loop for receiving messages
 	for {
@@ -84,8 +90,8 @@ func (c *MyMQTTClient) Run() {
 	c.MyClient.Disconnect(250)
 }
 
-func sub(client mqtt.Client) {
-	token := client.Subscribe(shared.AnyUpTopicFilter, 0, nil)
+func (c *MyMQTTClient) sub() {
+	token := c.MyClient.Subscribe(shared.AnyUpTopicFilter, 0, nil)
 
 	token.Wait()
 }

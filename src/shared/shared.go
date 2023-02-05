@@ -7,6 +7,7 @@ Date: 04/02/2023
 package shared
 
 import (
+	"math/rand"
 	"time"
 )
 
@@ -15,9 +16,22 @@ import (
 const SV = 2.7 // Shutoff voltage (page 17) = 2.7 V
 const OV = 3.7 // Optimum voltage (page 17) = 3.7 V
 
-// const HYSTERESIS = 0.001 // 10 mV
-// const MinimumTaskExecutionRate = 1
-// const MaximumTaskExecutionRate = 1200
+const HYSTERESIS = 0.001 // 10 mV
+const MinimumTaskExecutionRate = 1
+const MaximumTaskExecutionRate = 1200
+
+const MaximumVoltage = 100.0
+
+const StepVoltage = 0.001 // in Volts
+
+const AdaptationCycles = 131
+
+const InitialVoltage = 3.3 // 3.3 V - page 19
+const InitialRate = 1
+
+const SamplingCycleSize = 30
+
+const AverageConsumption = 0.01
 
 // Controller type names
 
@@ -33,32 +47,19 @@ const DeadZonePid = "DeadZonePID"
 
 const GainScheduling = "GainScheduling"
 
-// Capacitor behaviour patterns
+// Capacitor behaviour patterns/AsTAR
 
-// const INCREASING = 0
-// const HalfIncreasing = 1
-// const QuarterIncreasing = 2
-// const DECREASING = 3
-// const HalfDecreasing = 4
-// const QuarterDecreasing = 5
-// const CONSTANT = 6
-// const RANDOM = 7
-
-// const MaximumVoltage = 100.0
-// const StepVoltage = 0.001 // in Volts
-
-// const AdaptationCycles = 131
-
-// const InitialVoltage = 3.3 // 3.3 V - page 19
-// const InitialRate = 1
+const IncreasingHarvesting = 0
+const HalfIncreasingHarvesting = 1
+const QuarterIncreasingHarvesting = 2
+const DecreasingHarvesting = 3
+const HalfDecreasingHarvesting = 4
+const QuarterDecreasingHarvesting = 5
+const ConstantHarvesting = 6
+const RandomHarvesting = 7
+const NoHarvesting = 1000
 
 // const AverageConsumption = 0.01
-
-/*
-func RandInt(min int, max int) int {
-	return min + rand.Intn(max-min)
-}
-*/
 
 const AnyUpTopicFilter = BaseTopicName + "/+/up" // any topic
 
@@ -203,8 +204,12 @@ type DownDataNode2 struct {
 	} `json:"uplink_message"`
 }
 
-// Message format stored in "up" topics
+// Up topic JSON Message
 
 type UpData struct {
 	TaskRate float64 `json:"task_rate"`
+}
+
+func RandInt(min int, max int) int {
+	return min + rand.Intn(max-min)
 }
