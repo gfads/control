@@ -16,21 +16,28 @@ import (
 
 func main() {
 
-	// On Off controllers
-	//c := controllers.NewController(shared.BASIC_ONOFF,1.0, 1200.0)
-	//c := controllers.NewController(shared.HYSTERESIS_ONOFF,  1.0, 1200.0, 2.7/16.0)
-	//c := controllers.NewController(shared.DEAD_ZONE_ONOFF,  1.0, 1200.0, 2.7/16.0)
+	var c ops.IController
 
-	// PID controllers
-	//c := controllers.NewController(shared.BASIC_PID, -9600, 0.0, 0.0) // P Controller
-	//c := controllers.NewController(shared.BASIC_PID, -9600, 0.01, 0.0) // PI Controller
-	//c := controllers.NewController(shared.BASIC_PID, -9600, 0.01, 1.0) // PID Controllerc = controllers.NewController(shared.DEAD_ZONE_PID, -9600, 0.01, 1.0, 2.7/10)
-	//c := controllers.NewController(shared.INCREMENTAL_FORM_PID, -9600, 0.01, 1.0)
-	//c := controllers.NewController(shared.ERROR_SQUARE_PID, -9600, 0.01, 1.0)
-	//c := controllers.NewController(shared.SMOOTHING_PID, -9600, 0.01, 1.0)
+	// OnOff controllers -- select one
+	c = ops.NewController(shared.BasicOnoff, 0.0, 1000)
+	c = ops.NewController(shared.DeadZoneOnoff, 0.0, 1000, 10)
+	c = ops.NewController(shared.HysteresisOnoff, 0.0, 1000, 100)
+
+	// PID controllers -- select one
+	c = ops.NewController(shared.BasicPid, 1.0, 1200, -9600, 0.0, 0.0)  // P Controller
+	c = ops.NewController(shared.BasicPid, 1.0, 1200, -9600, 0.01, 0.0) // PI Controller
+	c = ops.NewController(shared.BasicPid, 1.0, 1200, -9600, 0.01, 1.0) //
+	c = ops.NewController(shared.BasicPid, 1.0, 1200, -9600, 0.01, 1.0)
+	c = ops.NewController(shared.SmoothingPid, 1.0, 1200, -9600, 0.01, 0.1)
+	c = ops.NewController(shared.IncrementalFormPid, 1.0, 1200, -9600, 0.01, 1.0)
+	c = ops.NewController(shared.ErrorSquarePid, 1.0, 1200, -9600, 0.01, 0.1)
+	c = ops.NewController(shared.DeadZonePid, 1.0, 1200, -9600, 0.01, 0.1, 6)
+
+	// Gain Scheduling controller (2 set of gains)
+	c = ops.NewController(shared.GainScheduling, 0.0, 1000, 1.0, 1.1, 0.0, 6)
 
 	// Gain Scheduling controller
-	c := ops.NewController(shared.BasicOnoff, 1.0, 1200)
+	c = ops.NewController(shared.BasicOnoff, 1.0, 1200)
 
 	// create client and use the controller instance
 	client := myclient.NewMyMQTTClient(shared.BrokerAddress, shared.BrokerPort, c)
